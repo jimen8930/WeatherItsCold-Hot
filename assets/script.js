@@ -6,6 +6,7 @@ const currentCity = document.getElementById('current-city');
 const currentTemperature = document.getElementById('temperature');
 const currentHumidty= document.getElementById('humidity');
 const currentWSpeed= document.getElementById('wind-speed');
+const searchHistory=document.getElementById('search-history');
 let APIKey = "95719a559a5afa0b90a3b42001df26ad"
 
  document.getElementById('search-button').addEventListener('click', function(){
@@ -55,12 +56,46 @@ function onClick() {
       });
   }
   
-  function displayWeather(data) {
-    currentCity.textContent = data.name;
-    currentTemperature.textContent = data.main.temp + '°C';
-    currentHumidty.textContent = data.main.humidity + '%';
-    currentWSpeed.textContent = data.wind.speed + ' m/s';
+  
+  function fetchWeather(city) {
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}&units=imperial`)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        displayWeather(data);
+      })
+      .catch(function(error) {
+        console.log('Error fetching weather data:', error);
+      });
   }
+  
+  function displayWeather(data) {
+    currentCity.textContent = data.city.name;
+    currentTemperature.textContent = data.list[0].main.temp + '°F';
+    currentHumidty.textContent = data.list[0].main.humidity + '%';
+    currentWSpeed.textContent = data.list[0].wind.speed + ' m/s';
+  
+    const forecastElements = document.getElementsByClassName('forecast');
+  
+    for (let i = 1; i < forecastElements.length + 1; i++) {
+      const forecast = data.list[i * 8];
+      const forecastDateElement = document.getElementById(`fDate${i - 1}`);
+      const forecastImgElement = document.getElementById(`fImg${i - 1}`);
+      const forecastTempElement = document.getElementById(`fTemp${i - 1}`);
+      const forecastHumidityElement = document.getElementById(`fHumidity${i - 1}`);
+      const forecastWindElement = document.getElementById(`fWind${i - 1}`);
+  
+      forecastDateElement.textContent = forecast.dt_txt.substring(0, 10);
+      forecastImgElement.innerHTML = `<img src="https://openweathermap.org/img/w/${forecast.weather[0].icon}.png" alt="${forecast.weather[0].description}">`;
+      forecastTempElement.textContent = forecast.main.temp + '°F';
+      forecastHumidityElement.textContent = forecast.main.humidity + '%';
+      forecastWindElement.textContent = forecast.wind.speed + ' m/s';
+    }
+  }
+  
+ 
+  
 
 
 
