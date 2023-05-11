@@ -37,11 +37,14 @@ function onClick() {
       fetchWeather(city);
       searchBar.value = '';
     }
+    var values = $(this).siblings('.description').val()
+    var time = $(this).parent().attr('id')
+    localStorage.setItem(city, values)
   }
   
-  function onClear() {
-     searchBar.value = '';
-   }
+  // function onClear() {
+  //    searchBar.value = '';
+  //  }
   
   function fetchWeather(city) {
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey)
