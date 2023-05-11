@@ -37,9 +37,7 @@ function onClick() {
       fetchWeather(city);
       searchBar.value = '';
     }
-    // var values = $(this).siblings('.description').val()
-    // var time = $(this).parent().attr('id')
-    // localStorage.setItem(city, values)
+    
   }
   
   // function onClear() {
