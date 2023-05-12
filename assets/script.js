@@ -6,7 +6,7 @@ const currentCity = document.getElementById('current-city');
 const currentTemperature = document.getElementById('temperature');
 const currentHumidty = document.getElementById('humidity');
 const currentWSpeed = document.getElementById('wind-speed');
-const searchHistory = document.getElementById('search-history');
+const searchHistorys = document.getElementById('search-history');
 let APIKey = "95719a559a5afa0b90a3b42001df26ad"
 
  document.getElementById('search-button').addEventListener('click', function(){
@@ -16,21 +16,28 @@ let APIKey = "95719a559a5afa0b90a3b42001df26ad"
     console.log(searchBar.value);
 })
 
+// Retrieving search history from local storage
+const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
-//  function onClick() {
-   
-//     fetch("http://api.openweathermap.org/data/2.5/weather?q=" + searchBar.value + "&appid=" + APIKey).then(function(res){
-//     return res.json()
-// }).then(function(data){
-//     console.log(data);
-//     console.log(data.coord.lat);
-//     displayWeather(data);
-// }).catch(function(err){
-//     console.log(err);
-// })
-    
-    
-//  }
+// Accessing the <ul> element
+const historyList = document.getElementById('history-list');
+
+// Clearing the existing list items
+historyList.innerHTML = '';
+
+// Generating list items for each search history entry
+if (searchHistory.length > 0) {
+  searchHistory.forEach(function (item) {
+    const li = document.createElement('li');
+    li.textContent = item;
+    historyList.appendChild(li);
+  });
+} else {
+  const li = document.createElement('li');
+  li.textContent = 'No search history';
+  historyList.appendChild(li);
+}
+
 function onClick() {
     const city = searchBar.value.trim();
     if (city !== '') {
@@ -40,9 +47,7 @@ function onClick() {
     
   }
   
-  // function onClear() {
-  //    searchBar.value = '';
-  //  }
+
   
   function fetchWeather(city) {
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey)
@@ -100,11 +105,13 @@ function onClick() {
   let clearHistory = document.getElementById('clear-history');
   clearHistory.onClick =function() {
     localStorage.clear();
-    clearSeeachHistoryUI();
+    clearSearchHistoryUI();
   }
-   function clearSeeachHistoryUI() {
+   function clearSearchHistoryUI() {
     let cityElements =[cityOne, cityTwo, cityThree, cityFour, cityFive, citySix, citySeven, cityEight];
-    cityElements.forEach
+    cityElements.forEach((city)=>{
+      city.textContent = "";
+    });
    }
   
  

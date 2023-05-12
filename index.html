@@ -49,12 +49,17 @@
         <section class="d-flex justify-content-start">
         <button class=" btn btn-primary" type="button" id="clear-history">Clear History</button>
         </section>
-        <section id="search-history">
-
+        <section id="search-history" class="search-history">
+            <!-- Content goes here -->
+            <h2>Search History</h2>
+            <ul id="history-list"></ul>
+          </section>
+          
         </section>
     </nav>
     <!-- weather display -->
     <main>
+        <!-- Current Weather Display -->
         <section id="current-weather">
             <div class="d-flex justify-content-end">
             <div class="col-sm-8">
@@ -68,6 +73,7 @@
                 </div>
                 </div>
         </section>
+        <!-- Future Weather display for 5 days -->
         <section class="d-flex justify-content-end">
         <div class="col-sm-12" id="five-day-forecast">
             <h2>5-Day Forecast:</h2>
