@@ -17,7 +17,7 @@ let APIKey = "95719a559a5afa0b90a3b42001df26ad"
 })
 
 // Retrieving search history from local storage
-const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+const searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 
 // Accessing the <ul> element
 const historyList = document.getElementById('history-list');
