@@ -11,6 +11,11 @@ let APIKey = "95719a559a5afa0b90a3b42001df26ad"
 
  document.getElementById('search-button').addEventListener('click', function(){
      console.log(searchBar.value);
+     const city = searchBar.value.trim();
+    if (city !== '') {
+      fetchWeather(city);
+      searchBar.value = '';
+    }
  })
  document.getElementById('clear-history').addEventListener('click', function(){
     console.log(searchBar.value);
@@ -39,14 +44,7 @@ if (searchHistory.length > 0) {
   historyList.appendChild(li);
 }
 
-function onClick() {
-    const city = searchBar.value.trim();
-    if (city !== '') {
-      fetchWeather(city);
-      searchBar.value = '';
-    }
-    
-  }
+
   // Update search history and retrieve data from seacrch history
     searchHistory.push(city);
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
