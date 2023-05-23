@@ -11,11 +11,14 @@ let APIKey = "95719a559a5afa0b90a3b42001df26ad"
 
  document.getElementById('search-button').addEventListener('click', function(){
      console.log(searchBar.value);
+  function onClick(){
      const city = searchBar.value.trim();
     if (city !== '') {
       fetchWeather(city);
+      showSearched(city)
       searchBar.value = '';
     }
+  } 
  })
  document.getElementById('clear-history').addEventListener('click', function(){
     console.log(searchBar.value);
@@ -23,7 +26,12 @@ let APIKey = "95719a559a5afa0b90a3b42001df26ad"
 
 
 // Retrieving search history from local storage
-const searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+// Update search history and retrieve data from seacrch history
+const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+function showSearched (city) {
+  searchHistory.push(city);
+  localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+}
 
 // Accessing the <ul> element
 const historyList = document.getElementById('history-list');
@@ -44,14 +52,6 @@ if (searchHistory.length > 0) {
   historyList.appendChild(li);
 }
 
-
-  // Update search history and retrieve data from seacrch history
-    searchHistory.push(city);
-    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-
-
-
-  
   function fetchWeather(city) {
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey)
       .then(function(response) {
@@ -104,18 +104,18 @@ if (searchHistory.length > 0) {
     }
     
   }
-  //clear history button
-  let clearHistory = document.getElementById('clear-history');
-  clearHistory.onClick =function() {
-    localStorage.clear();
-    clearSearchHistoryUI();
-  }
-   function clearSearchHistoryUI() {
-    let cityElements =[cityOne, cityTwo, cityThree, cityFour, cityFive, citySix, citySeven, cityEight];
-    cityElements.forEach((city)=>{
-      city.textContent = "";
-    });
-   }
+  // //clear history button
+  // let clearHistory = document.getElementById('clear-history');
+  // clearHistory.onClick =function() {
+  //   localStorage.clear();
+  //   clearSearchHistoryUI();
+  // }
+  //  function clearSearchHistoryUI() {
+  //   let cityElements =[cityOne, cityTwo, cityThree, cityFour, cityFive, citySix, citySeven, cityEight];
+  //   cityElements.forEach((city)=>{
+  //     city.textContent = "";
+  //   });
+  //  }
   
  
   
