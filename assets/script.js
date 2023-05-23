@@ -16,6 +16,7 @@ let APIKey = "95719a559a5afa0b90a3b42001df26ad"
     console.log(searchBar.value);
 })
 
+
 // Retrieving search history from local storage
 const searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 
@@ -46,7 +47,11 @@ function onClick() {
     }
     
   }
-  
+  // Update search history and retrieve data from seacrch history
+    searchHistory.push(city);
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+
+
 
   
   function fetchWeather(city) {

@@ -24,3 +24,7 @@ li:hover{
     background-color: lightslategray;
     text-decoration: underline;
 }
+.forecast-panel {
+    padding: 10px;
+  }
+  
