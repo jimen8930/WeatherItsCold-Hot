@@ -11,15 +11,15 @@ let APIKey = "95719a559a5afa0b90a3b42001df26ad"
 
  document.getElementById('search-button').addEventListener('click', function(){
      console.log(searchBar.value);
-  function onClick(){
-     const city = searchBar.value.trim();
-    if (city !== '') {
-      fetchWeather(city);
-      showSearched(city)
-      searchBar.value = '';
-    }
-  } 
  })
+ function onClick(){
+  const city = searchBar.value.trim();
+ if (city !== '') {
+   fetchWeather(city);
+   showSearched(city)
+   searchBar.value = '';
+ }
+} 
  document.getElementById('clear-history').addEventListener('click', function(){
     console.log(searchBar.value);
 })
@@ -110,12 +110,7 @@ if (searchHistory.length > 0) {
   //   localStorage.clear();
   //   clearSearchHistoryUI();
   // }
-  //  function clearSearchHistoryUI() {
-  //   let cityElements =[cityOne, cityTwo, cityThree, cityFour, cityFive, citySix, citySeven, cityEight];
-  //   cityElements.forEach((city)=>{
-  //     city.textContent = "";
-  //   });
-  //  }
+  
   
  
   
