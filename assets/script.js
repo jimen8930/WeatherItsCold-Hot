@@ -17,7 +17,7 @@ let APIKey = "95719a559a5afa0b90a3b42001df26ad"
  if (city !== '') {
    fetchWeather(city);
    showSearched(city)
-   searchBar.value = '';
+   searchBar.value = ''; 
  }
 } 
  document.getElementById('clear-history').addEventListener('click', function(){
@@ -37,9 +37,12 @@ function showSearched (city) {
 const historyList = document.getElementById('history-list');
 
 // Clearing the existing list items
+function clearSearchHistoryUI() {
 historyList.innerHTML = '';
+}
 
 // Generating list items for each search history entry
+//function generateSearchHistoryUI() {
 if (searchHistory.length > 0) {
   searchHistory.forEach(function (item) {
     const li = document.createElement('li');
@@ -51,22 +54,10 @@ if (searchHistory.length > 0) {
   li.textContent = 'No search history';
   historyList.appendChild(li);
 }
+//}
+//historyList.innerHTML
+  //  generateSearchHistoryUI();
 
-  function fetchWeather(city) {
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        displayWeather(data);
-        console.log(data);
-      })
-      .catch(function(error) {
-        console.log('Error fetching weather data:', error);
-      });
-  }
-  
-  
   function fetchWeather(city) {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIKey}&units=imperial`)
       .then(function(response) {
@@ -104,12 +95,15 @@ if (searchHistory.length > 0) {
     }
     
   }
-  // //clear history button
-  // let clearHistory = document.getElementById('clear-history');
-  // clearHistory.onClick =function() {
-  //   localStorage.clear();
-  //   clearSearchHistoryUI();
-  // }
+   //clear history button
+   let clearHistory = document.getElementById('clear-history');
+  clearHistory.addEventListener('click', function() {
+   localStorage.clear();
+   clearSearchHistoryUI();
+    })
+
+
+
   
   
  
